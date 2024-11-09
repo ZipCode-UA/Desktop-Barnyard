@@ -8,8 +8,6 @@
 
     HRESULT Sprites::CreateGraphicsResources(){
         HRESULT hr;
-        // Later when we have multiple sprites, we will need to make this a multithreaded factory (I think)
-        hr = D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, &pFactory);
     }
 
     LRESULT Sprites::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam){
