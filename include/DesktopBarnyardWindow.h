@@ -7,6 +7,7 @@ class DesktopBarnyardWindow : public BaseWindow<DesktopBarnyardWindow> {
 
     void createButtons();
     HWND spawnCreatureButton = NULL;
+    HWND despawnCreatureButton = NULL;
 
 public:
     DesktopBarnyardWindow();

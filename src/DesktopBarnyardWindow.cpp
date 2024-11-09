@@ -1,6 +1,7 @@
 #include "DesktopBarnyardWindow.h"
 
 #define SPAWN_HANDLE 100
+#define DESPAWN_HANDLE 101
 
 DesktopBarnyardWindow::DesktopBarnyardWindow() { }
 
@@ -19,7 +20,9 @@ LRESULT DesktopBarnyardWindow::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lP
                 {
                     switch (LOWORD(wParam)){
                         case SPAWN_HANDLE:
-                            MessageBox(NULL, L"Spawn Creature Pushed", L"Spawn Creature", 0);
+                            MessageBox(NULL, L"Spawn Creature Pushed", L"Temp MSG Box", 0);
+                        case DESPAWN_HANDLE:
+                            MessageBox(NULL, L"Despawn Creature Pushed", L"Temp MSG Box", 0);
                             
                     
                     }   
@@ -40,6 +43,17 @@ void DesktopBarnyardWindow::createButtons(){
         200, 200, // width and height
         m_hwnd,
         (HMENU) SPAWN_HANDLE,
+        (HINSTANCE)GetWindowLongPtr(m_hwnd, GWLP_HINSTANCE),
+        NULL);
+
+    spawnCreatureButton = CreateWindow(
+        L"BUTTON", // predefined button class
+        L"Remove Creature",
+        WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON,
+        10, 220, // (x, y) of top left corner
+        200, 200, // width and height
+        m_hwnd,
+        (HMENU) DESPAWN_HANDLE,
         (HINSTANCE)GetWindowLongPtr(m_hwnd, GWLP_HINSTANCE),
         NULL);
 }
