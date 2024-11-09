@@ -12,7 +12,7 @@
 int main(){
     
     DesktopBarnyardWindow window;
-    if (window.Create(0, WS_OVERLAPPEDWINDOW)) {
+    if (!window.Create(0, WS_OVERLAPPEDWINDOW)) {
         MessageBox(NULL, L"Failed to create window.", L"Error", MB_OK | MB_ICONERROR);
         return -1;
     }
