@@ -4,7 +4,7 @@ set(Dirs
 
 set(SourceFiles
     "main.cpp"
-    "BaseWindow.cpp"
+    "DesktopBarnyardWindow.cpp"
 )
 
 add_library(src ${SourceFiles})

@@ -8,4 +8,5 @@ set_target_properties(DesktopBarnyard PROPERTIES OUTPUT_NAME "Desktop Barnyard")
 add_subdirectory(include)
 add_subdirectory(src)
 
-target_include_directories(DesktopBarnyard PUBLIC)
+target_link_libraries(DesktopBarnyard PRIVATE src)
+target_link_options(DesktopBarnyard PRIVATE -mwindows)
