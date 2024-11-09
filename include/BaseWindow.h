@@ -1,6 +1,10 @@
 #ifndef BASEWINDOW_H
 #define BASEWINDOW_H
 
+#ifndef UNICODE
+#define UNICODE
+#endif 
+
 #include <Windows.h>
 
 template <class T> void SafeRelease(T** ppT) {
