@@ -3,8 +3,6 @@
 
 #include "BaseWindow.h"
 
-#define SPAWN_HANDLE 100
-
 class DesktopBarnyardWindow : public BaseWindow<DesktopBarnyardWindow> {
 
     void createButtons();
