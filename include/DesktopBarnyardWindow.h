@@ -13,9 +13,7 @@ public:
     DesktopBarnyardWindow();
 
     PCWSTR ClassName() const override { return L"Barnyard"; }
-    LRESULT HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam) override;
-
-    void start();
+    LRESULT HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam);
 };
 
 

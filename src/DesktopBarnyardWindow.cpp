@@ -58,7 +58,3 @@ void DesktopBarnyardWindow::createButtons(){
         NULL);
 }
 
-void DesktopBarnyardWindow::start(){
-    
-}
-
