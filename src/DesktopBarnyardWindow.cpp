@@ -49,7 +49,7 @@ void DesktopBarnyardWindow::createButtons(){
         L"BUTTON", // predefined button class
         L"Remove Creature",
         WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON,
-        10, 220, // (x, y) of top left corner
+        220, 10, // (x, y) of top left corner
         200, 200, // width and height
         m_hwnd,
         (HMENU) DESPAWN_HANDLE,
