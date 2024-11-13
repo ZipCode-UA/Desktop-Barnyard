@@ -234,7 +234,7 @@ LRESULT Sprites::OnPaint(HWND hWnd){
             D2D1_SIZE_F rtSize = pRenderTarget->GetSize();
 
             // Create a rectangle same size of current window
-            D2D1_RECT_F rectangle = D2D1::RectF(0.0f, 0.0f, 128, 128);
+            D2D1_RECT_F rectangle = D2D1::RectF(0.0f, 0.0f, rtSize.width, rtSize.height);
 
             // D2DBitmap may have been released due to device loss. 
             // If so, re-create it from the source bitmap
