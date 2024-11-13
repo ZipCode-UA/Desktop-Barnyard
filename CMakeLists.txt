@@ -10,3 +10,5 @@ add_subdirectory(src)
 
 target_link_libraries(DesktopBarnyard PRIVATE src)
 target_link_options(DesktopBarnyard PRIVATE -mwindows)
+target_link_libraries(DesktopBarnyard PRIVATE gdiplus)
+target_link_libraries(DesktopBarnyard PRIVATE d2d1.lib)

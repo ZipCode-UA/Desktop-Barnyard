@@ -2,6 +2,9 @@
 #define DESKTOPBARNYARDWINDOW_H
 
 #include "BaseWindow.h"
+#include "Sprites.h"
+
+#include <vector>
 
 class DesktopBarnyardWindow : public BaseWindow<DesktopBarnyardWindow> {
 
@@ -9,6 +12,8 @@ class DesktopBarnyardWindow : public BaseWindow<DesktopBarnyardWindow> {
     HWND spawnCreatureButton = NULL;
     HWND despawnCreatureButton = NULL;
 
+    Sprites testSprite;
+    
 public:
     DesktopBarnyardWindow();
 

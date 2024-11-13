@@ -4,7 +4,11 @@
 #include "BaseWindow.h"
 
 #include <d2d1.h>
+#include <d2d1helper.h>
 #include <wincodec.h>
+#include <windows.h>
+#include <gdiplus.h>
+#include <commdlg.h>
 
 #include <filesystem>
 
@@ -15,26 +19,36 @@
      
 
 class Sprites : public BaseWindow<Sprites> {
-    // Direct2D stuff 
-    ID2D1Factory*           pFactory = nullptr;
-    ID2D1HwndRenderTarget*  pRenderTarget = nullptr;
-    ID2D1Bitmap*            pBitmap = nullptr;
-    IWICImagingFactory*     pWICFactory = nullptr; // WIC is windows imaging compnent
+    const FLOAT DEFAULT_DPI = 96.f;
 
-    HRESULT CreateGraphicsResources();
+    // Direct2D stuff 
+    ID2D1Factory*           pD2D1Factory;
+    ID2D1HwndRenderTarget*  pRenderTarget;
+    ID2D1Bitmap*            pBitmap;
+    IWICImagingFactory*     pWICFactory; // WIC is windows imaging compnent
+    IWICFormatConverter*    pSourceBitmap;
+    Gdiplus::Bitmap*        pGdiPlusBitmap;
 
 public:
     // Windows stuff
+    HRESULT initialize();
     PCWSTR ClassName() const override { return L"Sprite"; }
     LRESULT HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam);
+    HRESULT CreateDeviceResources();
+    LRESULT OnPaint(HWND hWnd);
 
-    // Normal program stuff
     Sprites();
     
-    // later we will probably want to make something that loads all assets into bitmaps when the program start
-    const std::filesystem::path testImagePath = "../TestAsset.png";
+    HRESULT makeBitmap();
+    BOOL locateImageFile(LPWSTR pszFileName, DWORD cchFileName);
+
+    void showSprite();
+    void timerUp();
     
-    POINT position;
+    POINT pos;
+    POINT velocity;
+    POINT size;
+    POINT monitorSize;
 
 };
 

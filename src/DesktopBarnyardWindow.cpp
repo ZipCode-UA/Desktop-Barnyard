@@ -20,14 +20,13 @@ LRESULT DesktopBarnyardWindow::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lP
                 {
                     switch (LOWORD(wParam)){
                         case SPAWN_HANDLE:
-                            MessageBox(NULL, L"Spawn Creature Pushed", L"Temp MSG Box", 0);
+                            testSprite.initialize();
+                            break;
                         case DESPAWN_HANDLE:
                             MessageBox(NULL, L"Despawn Creature Pushed", L"Temp MSG Box", 0);
-                            
-                    
+                            break;
                     }   
                 }
-
             default:
                 return DefWindowProc(m_hwnd, uMsg, wParam, lParam);
         }
