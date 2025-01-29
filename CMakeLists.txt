@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.30.0 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.14)
 
 project(DesktopBarnyard LANGUAGES CXX)
 
@@ -27,16 +27,16 @@ set(IMGUI_SOURCES
 
 add_library(imgui STATIC ${IMGUI_SOURCES})
 target_include_directories(imgui PUBLIC ${IMGUI_DIR} ${IMGUI_DIR}/backends)
-target_link_libraries(imgui PUBLIC glfw GL)
+target_link_libraries(imgui PUBLIC glfw)
 
 # Main executable
 add_executable(DesktopBarnyard opengl_glfw_example.cpp)
 target_link_libraries(DesktopBarnyard PRIVATE imgui glfw)
 
-# link dependancies
+# Link OpenGL properly
 if(WIN32)
-    target_link_libraries(imgui PRIVATE glfw opengl32)
+    target_link_libraries(DesktopBarnyard PRIVATE opengl32)
 else()
     find_package(OpenGL REQUIRED)
-    target_link_libraries(imgui PRIVATE glfw GL)
+    target_link_libraries(DesktopBarnyard PRIVATE OpenGL::GL)
 endif()
