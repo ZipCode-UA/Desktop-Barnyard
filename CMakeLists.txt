@@ -29,14 +29,14 @@ add_library(imgui STATIC ${IMGUI_SOURCES})
 target_include_directories(imgui PUBLIC ${IMGUI_DIR} ${IMGUI_DIR}/backends)
 target_link_libraries(imgui PUBLIC glfw GL)
 
-# Add OpenGL support for Windows or Linux/macOS
+# Main executable
+add_executable(DesktopBarnyard opengl_glfw_example.cpp)
+target_link_libraries(DesktopBarnyard PRIVATE imgui glfw)
+
+# link dependancies
 if(WIN32)
     target_link_libraries(imgui PRIVATE glfw opengl32)
 else()
     find_package(OpenGL REQUIRED)
     target_link_libraries(imgui PRIVATE glfw GL)
 endif()
-
-# Main executable
-add_executable(DesktopBarnyard opengl_glfw_example.cpp)
-target_link_libraries(DesktopBarnyard PRIVATE imgui glfw)
