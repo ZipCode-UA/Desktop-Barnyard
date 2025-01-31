@@ -24,7 +24,7 @@ void Sprites::timerUp(){
     pos.y += velocity.y;
     if (pos.x+size.x >= monitorSize.x || pos.x <= 0) velocity.x *= -1;
     if (pos.y + size.y >= monitorSize.y || pos.y <= 0) velocity.y *= -1;
-    SetWindowPos(m_hwnd, HWND_TOPMOST, pos.x, pos.y, 100, 100, SWP_SHOWWINDOW);
+    SetWindowPos(m_hwnd, HWND_TOPMOST, pos.x, pos.y, 100, 100, SWP_SHOWWINDOW | SWP_NOZORDER | SWP_NOACTIVATE);
     SetTimer(Window(), 1001, 10, NULL);
     OnPaint(m_hwnd);
 }

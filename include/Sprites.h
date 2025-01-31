@@ -12,11 +12,9 @@
 
 #include <filesystem>
 
-
 // We wil probably need windows animation in the future
 // https://learn.microsoft.com/en-us/windows/win32/uianimation/windows-animation-developer-guide
 // It uses the COM library
-     
 
 class Sprites : public BaseWindow<Sprites> {
     const FLOAT DEFAULT_DPI = 96.f;

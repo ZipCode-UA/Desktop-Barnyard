@@ -45,7 +45,7 @@ void DesktopBarnyardWindow::createButtons(){
         (HINSTANCE)GetWindowLongPtr(m_hwnd, GWLP_HINSTANCE),
         NULL);
 
-    spawnCreatureButton = CreateWindow(
+    despawnCreatureButton = CreateWindow(
         L"BUTTON", // predefined button class
         L"Remove Creature",
         WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON,

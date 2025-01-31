@@ -18,7 +18,7 @@ int main(){
     }
 
 
-    // Create main window    
+    // Create main window
     DesktopBarnyardWindow window;
     if (!window.Create(L"Barnyard", WS_OVERLAPPEDWINDOW, 0, CW_USEDEFAULT, CW_USEDEFAULT, 440, 220+36)) {
         MessageBox(NULL, L"Failed to create window.", L"Error", MB_OK | MB_ICONERROR);
