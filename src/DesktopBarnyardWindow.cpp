@@ -7,7 +7,9 @@ DesktopBarnyardWindow::DesktopBarnyardWindow() { }
 
 LRESULT DesktopBarnyardWindow::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam) {
     switch (uMsg) {
-        	case WM_CLOSE:
+            case WM_QUIT:
+                return 0;
+            case WM_CLOSE:
                 PostQuitMessage(0);
                 return 0;
             case WM_DESTROY: 
@@ -20,11 +22,11 @@ LRESULT DesktopBarnyardWindow::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lP
                 {
                     switch (LOWORD(wParam)){
                         case SPAWN_HANDLE:
-                            testSprite.initialize();
-                            break;
+                            spawnCreature();
+                            return 0;
                         case DESPAWN_HANDLE:
-                            MessageBox(NULL, L"Despawn Creature Pushed", L"Temp MSG Box", 0);
-                            break;
+                            despawnCreature();
+                            return 0;
                     }   
                 }
             default:
@@ -57,3 +59,17 @@ void DesktopBarnyardWindow::createButtons(){
         NULL);
 }
 
+
+void DesktopBarnyardWindow::despawnCreature(){
+    if (!SpriteList.empty()) {
+       Sprites* temp = SpriteList.back();
+       SpriteList.pop_back();
+       delete temp;
+    }
+}
+
+void DesktopBarnyardWindow::spawnCreature(){
+    Sprites* temp = new Sprites();
+    temp->initialize();
+    SpriteList.push_back(temp);
+}

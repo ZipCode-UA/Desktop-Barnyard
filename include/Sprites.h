@@ -36,7 +36,8 @@ public:
     LRESULT OnPaint(HWND hWnd);
 
     Sprites();
-    
+    ~Sprites();
+
     HRESULT makeBitmap();
     BOOL locateImageFile(LPWSTR pszFileName, DWORD cchFileName);
 

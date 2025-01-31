@@ -1,4 +1,5 @@
 #include "Sprites.h"
+#include <iostream>
 
 using namespace Gdiplus;
 
@@ -15,11 +16,19 @@ Sprites::Sprites():
 {
 }
 
+Sprites::~Sprites(){
+    if (m_hwnd){
+        DestroyWindow(m_hwnd);
+        m_hwnd == nullptr;
+    }
+}
+
 void Sprites::showSprite(){
 
 }
 
 void Sprites::timerUp(){
+    std::cerr << "test\n";
     pos.x += velocity.x;
     pos.y += velocity.y;
     if (pos.x+size.x >= monitorSize.x || pos.x <= 0) velocity.x *= -1;
@@ -201,12 +210,18 @@ BOOL Sprites::locateImageFile(LPWSTR pszFileName, DWORD cchFileName)
 LRESULT Sprites::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam){
     switch (uMsg)
     {
+    case WM_DESTROY:
+        return 0;
+    case WM_QUIT:
+        SafeRelease(&pD2D1Factory);
+        SafeRelease(&pWICFactory);
+        return 0;
     case WM_TIMER:
         timerUp();
-        break;
+        return 0;
     case WM_PAINT:
         OnPaint(m_hwnd);
-        break;
+        return 0;
     default:
         break;
     }

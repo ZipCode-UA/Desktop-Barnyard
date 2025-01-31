@@ -12,7 +12,10 @@ class DesktopBarnyardWindow : public BaseWindow<DesktopBarnyardWindow> {
     HWND spawnCreatureButton = NULL;
     HWND despawnCreatureButton = NULL;
 
-    Sprites testSprite;
+    void despawnCreature();
+    void spawnCreature();
+
+    std::vector<Sprites*> SpriteList;
     
 public:
     DesktopBarnyardWindow();
