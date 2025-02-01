@@ -32,7 +32,7 @@ void Sprites::timerUp() {
 }
 
 HRESULT Sprites::initialize(ID2D1Factory* pD2D1Factory, IWICImagingFactory* pWICFactory){
-    
+
     this->pWICFactory = pWICFactory;
     this->pD2D1Factory = pD2D1Factory;
 
@@ -41,9 +41,9 @@ HRESULT Sprites::initialize(ID2D1Factory* pD2D1Factory, IWICImagingFactory* pWIC
         // Create window
         if (!Create(L"TestSprite", 
             WS_POPUP | WS_VISIBLE, // popup means no boarder
-            WS_EX_LAYERED, // only transparent window style
-            pos.x, pos.y, // starting position
-            size.x, size.y // size
+            WS_EX_LAYERED,         // only transparent window style
+            pos.x, pos.y,          // starting position
+            size.x, size.y         // size
         )) {
             throw std::runtime_error("Failed to create sprite window");
         }
