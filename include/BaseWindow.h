@@ -54,15 +54,23 @@ public:
         HMENU hMenu = 0
     )
     {
-        WNDCLASS wc = { 0 };
+        WNDCLASS existingWc;
+        if (!GetClassInfoW(GetModuleHandle(NULL), ClassName(), &existingWc)) {
+            // Class not registered yet; register it now
+            WNDCLASS wc = { 0 };
+            wc.lpfnWndProc = DERIVED_TYPE::WindowProc;
+            wc.hInstance = GetModuleHandle(NULL);
+            wc.lpszClassName = ClassName();
 
-        wc.lpfnWndProc = DERIVED_TYPE::WindowProc;
-        wc.hInstance = GetModuleHandle(NULL);
-        wc.lpszClassName = ClassName();
+            // Optional: Set default cursor/background for robustness
+            wc.hCursor = LoadCursor(NULL, IDC_ARROW);
+            wc.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
 
-        if (!RegisterClass(&wc)){
-            throw "error";
-            return false;
+            if (!RegisterClass(&wc)) {
+                // Handle error
+                throw L"Failed to register window class";
+                return FALSE;
+            }
         }
 
         m_hwnd = CreateWindowEx(

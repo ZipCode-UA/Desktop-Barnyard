@@ -6,8 +6,6 @@ using namespace Gdiplus;
 Sprites::Sprites():
     pBitmap(NULL),
     pSourceBitmap(NULL),
-    pWICFactory(NULL),
-    pD2D1Factory(NULL),
     pRenderTarget(NULL),
     velocity({3, 3}),
     pos({100, 100}),
@@ -16,18 +14,13 @@ Sprites::Sprites():
 {
 }
 
-Sprites::~Sprites(){
+Sprites::~Sprites() {
     if (m_hwnd){
         DestroyWindow(m_hwnd);
-        m_hwnd == nullptr;
     }
 }
 
-void Sprites::showSprite(){
-
-}
-
-void Sprites::timerUp(){
+void Sprites::timerUp() {
     std::cerr << "test\n";
     pos.x += velocity.x;
     pos.y += velocity.y;
@@ -38,23 +31,12 @@ void Sprites::timerUp(){
     OnPaint(m_hwnd);
 }
 
-HRESULT Sprites::initialize(){
+HRESULT Sprites::initialize(ID2D1Factory* pD2D1Factory, IWICImagingFactory* pWICFactory){
+    
+    this->pWICFactory = pWICFactory;
+    this->pD2D1Factory = pD2D1Factory;
+
     HRESULT hr = S_OK;
-
-    // Create WIC factory
-    hr = CoCreateInstance(
-    CLSID_WICImagingFactory,
-    NULL,
-    CLSCTX_INPROC_SERVER,
-    IID_PPV_ARGS(&pWICFactory)
-    );
-
-    // Create D2D factory
-    if (SUCCEEDED(hr)) {
-        // Create D2D factory
-        hr = D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, &pD2D1Factory);
-    }
-
     if(SUCCEEDED(hr)){
         // Create window
         if (!Create(L"TestSprite", 
@@ -71,7 +53,7 @@ HRESULT Sprites::initialize(){
         SetWindowPos(m_hwnd, HWND_TOPMOST, pos.x, pos.y, size.x, size.y, SWP_SHOWWINDOW);
         SetTimer(Window(), 1001, 10, NULL);
     }
-    
+
     hr = makeBitmap();
 
     return S_OK;
@@ -213,8 +195,6 @@ LRESULT Sprites::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam){
     case WM_DESTROY:
         return 0;
     case WM_QUIT:
-        SafeRelease(&pD2D1Factory);
-        SafeRelease(&pWICFactory);
         return 0;
     case WM_TIMER:
         timerUp();
@@ -270,6 +250,7 @@ LRESULT Sprites::OnPaint(HWND hWnd){
             // They will be re-create in the next rendering pass
             if (hr == D2DERR_RECREATE_TARGET)
             {
+                pRenderTarget->EndDraw();
                 SafeRelease(&pBitmap);
                 SafeRelease(&pRenderTarget);
                 // Force a re-render

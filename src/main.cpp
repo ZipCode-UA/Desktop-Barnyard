@@ -12,7 +12,7 @@
 int main(){
 
     // Initialize COM
-    HRESULT hr = CoInitializeEx(NULL, COINIT_APARTMENTTHREADED);
+    HRESULT hr = CoInitializeEx(NULL, COINIT_MULTITHREADED);
     if (FAILED(hr)) {
         MessageBox(NULL, L"Failed to initialize COM", L"Error", MB_OK);
     }

@@ -9,7 +9,6 @@
 #include <windows.h>
 #include <gdiplus.h>
 #include <commdlg.h>
-
 #include <filesystem>
 
 // We wil probably need windows animation in the future
@@ -17,25 +16,27 @@
 // It uses the COM library
 
 class Sprites : public BaseWindow<Sprites> {
+
     const FLOAT DEFAULT_DPI = 96.f;
 
     // Direct2D stuff 
     ID2D1Factory*           pD2D1Factory;
     ID2D1HwndRenderTarget*  pRenderTarget;
     ID2D1Bitmap*            pBitmap;
-    IWICImagingFactory*     pWICFactory; // WIC is windows imaging compnent
+
+    IWICImagingFactory*     pWICFactory;  
     IWICFormatConverter*    pSourceBitmap;
     Gdiplus::Bitmap*        pGdiPlusBitmap;
 
 public:
     // Windows stuff
-    HRESULT initialize();
+    HRESULT initialize(ID2D1Factory*, IWICImagingFactory*);
     PCWSTR ClassName() const override { return L"Sprite"; }
     LRESULT HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam);
     HRESULT CreateDeviceResources();
     LRESULT OnPaint(HWND hWnd);
 
-    Sprites();
+    Sprites(); // WIC is windows imaging compnent
     ~Sprites();
 
     HRESULT makeBitmap();
@@ -48,7 +49,6 @@ public:
     POINT velocity;
     POINT size;
     POINT monitorSize;
-
 };
 
 #endif

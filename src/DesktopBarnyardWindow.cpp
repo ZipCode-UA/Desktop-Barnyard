@@ -3,7 +3,22 @@
 #define SPAWN_HANDLE 100
 #define DESPAWN_HANDLE 101
 
-DesktopBarnyardWindow::DesktopBarnyardWindow() { }
+DesktopBarnyardWindow::DesktopBarnyardWindow() { 
+    HRESULT hr = S_OK;
+    
+    hr = CoCreateInstance(
+    CLSID_WICImagingFactory,
+    NULL,
+    CLSCTX_INPROC_SERVER,
+    IID_PPV_ARGS(&pWICFactory)
+    );
+
+    // Create D2D factory
+    if (SUCCEEDED(hr)) {
+        // Create D2D factory
+        hr = D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, &pD2D1Factory);
+    }
+}
 
 LRESULT DesktopBarnyardWindow::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam) {
     switch (uMsg) {
@@ -15,6 +30,7 @@ LRESULT DesktopBarnyardWindow::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lP
             case WM_DESTROY: 
                 return 0;
             case WM_CREATE:
+                
                 createButtons();
                 return 0;
             // this is the message thats added to the mesage queue when a button is pushed
@@ -70,6 +86,6 @@ void DesktopBarnyardWindow::despawnCreature(){
 
 void DesktopBarnyardWindow::spawnCreature(){
     Sprites* temp = new Sprites();
-    temp->initialize();
+    temp->initialize(pD2D1Factory, pWICFactory);
     SpriteList.push_back(temp);
 }
